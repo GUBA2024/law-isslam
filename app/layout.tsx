@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const cairo = localFont({
+const arabicSans = localFont({
   src: "./fonts/DejaVuSans.ttf",
   variable: "--font-cairo",
   display: "swap",
@@ -31,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" className={`${cairo.variable} dark h-full`} suppressHydrationWarning>
+    <html lang="ar" dir="rtl" className={`${arabicSans.variable} dark h-full`} suppressHydrationWarning>
       <body className="min-h-full bg-background text-foreground">{children}</body>
     </html>
   );

@@ -3,22 +3,24 @@
 import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<"dark" | "light">(() => {
-    if (typeof window === "undefined") {
-      return "dark";
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    const saved = (localStorage.getItem("theme") as "dark" | "light" | null) ?? "dark";
+    if (saved !== "dark") {
+      const rafId = window.requestAnimationFrame(() => setTheme(saved));
+      return () => window.cancelAnimationFrame(rafId);
     }
-    return (localStorage.getItem("theme") as "dark" | "light" | null) ?? "dark";
-  });
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
   const onToggle = () => {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
-    localStorage.setItem("theme", next);
-    document.documentElement.classList.toggle("dark", next === "dark");
   };
 
   return (

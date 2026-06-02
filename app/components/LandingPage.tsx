@@ -19,7 +19,7 @@ const SERVICES = [
   ["⚖️", "الاستشارات القانونية", "توجيه قانوني دقيق لحماية حقوقكم واتخاذ القرار الصحيح."],
   ["🏛️", "القضايا المدنية", "تمثيل احترافي في الدعاوى المدنية والتعويضات والنزاعات."],
   ["🛡️", "القضايا الجنائية", "دفاع قانوني متكامل وفق أعلى معايير المهنية والسرية."],
-  ["👨‍👩‍👧", "الأحوال الشخصية", "حلول قانونية لمسائل الأسرة والميراث والنفقات."] ,
+  ["👨‍👩‍👧", "الأحوال الشخصية", "حلول قانونية لمسائل الأسرة والميراث والنفقات."],
   ["🏢", "تأسيس الشركات", "تأسيس الكيانات التجارية وصياغة الهياكل القانونية السليمة."],
   ["📜", "صياغة العقود", "إعداد ومراجعة العقود باحترافية تمنع المخاطر المستقبلية."],
   ["📈", "القضايا التجارية", "معالجة النزاعات التجارية وحماية المصالح الاستثمارية."],
@@ -119,6 +119,14 @@ export default function LandingPage() {
       "https://www.google.com/maps?q=Cairo%20Egypt&output=embed",
     []
   );
+  const phoneRaw = process.env.NEXT_PUBLIC_PHONE ?? "+201000000000";
+  const phone = phoneRaw.replace(/[^\d+]/g, "");
+  const whatsappHref = `https://wa.me/${phone.replace("+", "")}`;
+  const socialLinks = {
+    facebook: process.env.NEXT_PUBLIC_SOCIAL_FACEBOOK ?? "https://www.facebook.com/",
+    linkedIn: process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN ?? "https://www.linkedin.com/",
+    instagram: process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM ?? "https://www.instagram.com/",
+  };
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -279,8 +287,8 @@ export default function LandingPage() {
               <label className="block text-sm">الرسالة<textarea required className="input min-h-28" name="message" /></label>
               <button type="submit" className="btn-gold w-full">إرسال الطلب</button>
               <div className="flex flex-wrap gap-3 pt-2">
-                <a className="btn-glass" href="https://wa.me/201000000000" target="_blank" rel="noreferrer">واتساب</a>
-                <a className="btn-glass" href="tel:+201000000000">اتصال مباشر</a>
+                <a className="btn-glass" href={whatsappHref} target="_blank" rel="noreferrer">واتساب</a>
+                <a className="btn-glass" href={`tel:${phone}`}>اتصال مباشر</a>
               </div>
             </form>
             <div className="glass-card min-h-80 overflow-hidden p-0">
@@ -310,9 +318,9 @@ export default function LandingPage() {
             <div>
               <h3 className="mb-3 font-bold text-gold">وسائل التواصل الاجتماعي</h3>
               <ul className="space-y-2 text-sm text-slate-300">
-                <li><a href="#" aria-label="Facebook">Facebook</a></li>
-                <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
-                <li><a href="#" aria-label="Instagram">Instagram</a></li>
+                <li><a href={socialLinks.facebook} target="_blank" rel="noreferrer" aria-label="Facebook">Facebook</a></li>
+                <li><a href={socialLinks.linkedIn} target="_blank" rel="noreferrer" aria-label="LinkedIn">LinkedIn</a></li>
+                <li><a href={socialLinks.instagram} target="_blank" rel="noreferrer" aria-label="Instagram">Instagram</a></li>
               </ul>
             </div>
           </div>

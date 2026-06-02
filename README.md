@@ -24,4 +24,8 @@ npm run start
 
 ```bash
 NEXT_PUBLIC_GOOGLE_MAPS_EMBED="https://www.google.com/maps?q=Cairo%20Egypt&output=embed"
+NEXT_PUBLIC_PHONE="+201000000000"
+NEXT_PUBLIC_SOCIAL_FACEBOOK="https://www.facebook.com/"
+NEXT_PUBLIC_SOCIAL_LINKEDIN="https://www.linkedin.com/"
+NEXT_PUBLIC_SOCIAL_INSTAGRAM="https://www.instagram.com/"
 ```
