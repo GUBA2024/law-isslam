@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f8fb;
+  --foreground: #091123;
+  --surface: rgba(255, 255, 255, 0.75);
+  --muted: #334155;
+}
+
+.dark {
+  --background: #03060d;
+  --foreground: #f8fbff;
+  --surface: rgba(8, 17, 34, 0.62);
+  --muted: #bfcee8;
+}
+
+@theme inline {
+  --font-sans: var(--font-cairo);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-gold: #d7b46a;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: radial-gradient(circle at 20% 0%, #0d1a31 0%, var(--background) 35%, var(--background) 100%);
+  color: var(--foreground);
+  font-family: var(--font-cairo), system-ui, sans-serif;
+  line-height: 1.7;
+}
+
+.section-wrap {
+  @apply mx-auto max-w-7xl px-6 py-14;
+}
+
+.section-title {
+  @apply text-3xl font-black text-[#0b1730] dark:text-white md:text-4xl;
+}
+
+.section-text {
+  @apply mt-4 max-w-5xl text-lg text-slate-700 dark:text-slate-200;
+}
+
+.glass-card {
+  @apply rounded-2xl border border-white/20 bg-[var(--surface)] p-5 shadow-[0_18px_50px_rgba(0,0,0,.35)] backdrop-blur-xl;
+}
+
+.service-card {
+  @apply rounded-2xl border border-gold/25 bg-[linear-gradient(160deg,#0c1832_0%,#060c19_60%,#04070f_100%)] p-6 shadow-[0_22px_55px_rgba(0,0,0,.35)] transition duration-300;
+}
+
+.btn-gold {
+  @apply inline-flex items-center justify-center rounded-xl bg-gold px-6 py-3 font-bold text-black transition hover:brightness-110;
+}
+
+.btn-glass {
+  @apply inline-flex items-center justify-center rounded-xl border border-gold/35 bg-white/10 px-6 py-3 font-semibold text-white transition hover:bg-white/20;
+}
+
+.input {
+  @apply mt-2 w-full rounded-xl border border-white/20 bg-black/35 px-4 py-3 text-white outline-none transition focus:border-gold;
+}
+
+.floating-particles {
+  @apply pointer-events-none fixed inset-0 z-10;
+}
+
+.floating-particles span {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: #d7b46a;
+  opacity: 0.28;
+  animation: floatUp 8s linear infinite;
+}
+
+.floating-particles span:nth-child(odd) {
+  background: #f8ddb0;
+}
+
+.floating-particles span:nth-child(1) { left: 6%; top: 90%; }
+.floating-particles span:nth-child(2) { left: 12%; top: 80%; }
+.floating-particles span:nth-child(3) { left: 20%; top: 88%; }
+.floating-particles span:nth-child(4) { left: 30%; top: 86%; }
+.floating-particles span:nth-child(5) { left: 38%; top: 92%; }
+.floating-particles span:nth-child(6) { left: 47%; top: 85%; }
+.floating-particles span:nth-child(7) { left: 56%; top: 91%; }
+.floating-particles span:nth-child(8) { left: 63%; top: 84%; }
+.floating-particles span:nth-child(9) { left: 71%; top: 89%; }
+.floating-particles span:nth-child(10) { left: 79%; top: 93%; }
+.floating-particles span:nth-child(11) { left: 84%; top: 87%; }
+.floating-particles span:nth-child(12) { left: 89%; top: 90%; }
+.floating-particles span:nth-child(13) { left: 16%; top: 95%; }
+.floating-particles span:nth-child(14) { left: 44%; top: 94%; }
+.floating-particles span:nth-child(15) { left: 67%; top: 96%; }
+.floating-particles span:nth-child(16) { left: 93%; top: 95%; }
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  15% { opacity: 0.35; }
+  100% { transform: translateY(-120vh) scale(1.35); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
