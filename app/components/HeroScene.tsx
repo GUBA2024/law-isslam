@@ -15,7 +15,7 @@ function JusticeScale() {
   });
 
   return (
-    <group ref={group} position={[0, -0.2, 0]}>
+    <group ref={group} position={[0, -0.15, 0]}>
       <mesh position={[0, -1.1, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[1.2, 1.4, 0.18, 64]} />
         <meshStandardMaterial color="#ab7a22" metalness={0.9} roughness={0.25} />
@@ -41,18 +41,67 @@ function JusticeScale() {
           </mesh>
         </group>
       ))}
+    </group>
+  );
+}
 
-      <mesh position={[0, 0.65, 0]}>
-        <sphereGeometry args={[0.11, 32, 32]} />
-        <meshPhysicalMaterial
-          color="#fff7de"
-          transmission={0.55}
-          roughness={0.05}
-          thickness={0.5}
-          ior={1.45}
-        />
+function Gavel() {
+  return (
+    <group position={[-1.7, -0.65, -0.5]} rotation={[0.45, 0.25, -0.4]}>
+      <mesh castShadow>
+        <cylinderGeometry args={[0.07, 0.07, 1.3, 24]} />
+        <meshStandardMaterial color="#6e4c2a" metalness={0.35} roughness={0.58} />
+      </mesh>
+      <mesh position={[0.58, 0, 0]} castShadow>
+        <boxGeometry args={[0.36, 0.18, 0.22]} />
+        <meshStandardMaterial color="#8a6133" metalness={0.38} roughness={0.5} />
       </mesh>
     </group>
+  );
+}
+
+function CourtColumns() {
+  return (
+    <group position={[1.65, -0.45, -0.8]}>
+      {[-0.35, 0, 0.35].map((x) => (
+        <group key={x} position={[x, 0, 0]}>
+          <mesh position={[0, -0.56, 0]} castShadow>
+            <cylinderGeometry args={[0.1, 0.12, 0.15, 20]} />
+            <meshStandardMaterial color="#cbb889" roughness={0.48} metalness={0.15} />
+          </mesh>
+          <mesh position={[0, -0.1, 0]} castShadow>
+            <cylinderGeometry args={[0.08, 0.08, 0.8, 24]} />
+            <meshStandardMaterial color="#d9c79d" roughness={0.42} metalness={0.1} />
+          </mesh>
+          <mesh position={[0, 0.38, 0]} castShadow>
+            <cylinderGeometry args={[0.1, 0.09, 0.1, 20]} />
+            <meshStandardMaterial color="#c9b486" roughness={0.44} metalness={0.12} />
+          </mesh>
+        </group>
+      ))}
+    </group>
+  );
+}
+
+function LawBooks() {
+  return (
+    <group position={[0.8, -0.9, 0.8]} rotation={[0, -0.45, 0]}>
+      {[0, 0.13, 0.26].map((y, index) => (
+        <mesh key={y} position={[0, y, 0]} castShadow>
+          <boxGeometry args={[0.7, 0.1, 0.42]} />
+          <meshStandardMaterial color={["#273958", "#5f2630", "#3f2f54"][index]} roughness={0.45} metalness={0.2} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+function JusticeLogo() {
+  return (
+    <mesh position={[0, 1.45, -1.2]}>
+      <ringGeometry args={[0.34, 0.45, 64]} />
+      <meshBasicMaterial color="#f2ca72" transparent opacity={0.85} />
+    </mesh>
   );
 }
 
@@ -91,15 +140,10 @@ function GoldenParticles() {
 
 export default function HeroScene() {
   return (
-    <Canvas
-      className="h-full w-full"
-      dpr={[1, 1.5]}
-      shadows
-      camera={{ position: [0, 0.5, 4.2], fov: 42 }}
-    >
+    <Canvas className="h-full w-full" dpr={[1, 1.5]} shadows camera={{ position: [0, 0.5, 4.2], fov: 42 }}>
       <color attach="background" args={["#05080f"]} />
       <fog attach="fog" args={["#05080f", 3, 10]} />
-      <ambientLight intensity={0.4} color="#f0dfb1" />
+      <ambientLight intensity={0.44} color="#f0dfb1" />
       <spotLight position={[4, 6, 4]} angle={0.35} penumbra={0.8} intensity={65} color="#ffd174" castShadow />
       <pointLight position={[-3, 2, -2]} intensity={20} color="#2155a7" />
 
@@ -108,13 +152,26 @@ export default function HeroScene() {
         <Float speed={1.3} floatIntensity={0.75} rotationIntensity={0.35}>
           <JusticeScale />
         </Float>
+        <Float speed={1.1} floatIntensity={0.35} rotationIntensity={0.25}>
+          <Gavel />
+          <CourtColumns />
+          <LawBooks />
+          <JusticeLogo />
+        </Float>
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.2, 0]} receiveShadow>
           <circleGeometry args={[4.3, 64]} />
           <meshStandardMaterial color="#050910" roughness={0.9} metalness={0.25} />
         </mesh>
         <Environment preset="city" />
       </Suspense>
-      <OrbitControls enableZoom={false} enablePan={false} maxPolarAngle={1.8} minPolarAngle={1.35} autoRotate autoRotateSpeed={0.25} />
+      <OrbitControls
+        enableZoom={false}
+        enablePan={false}
+        maxPolarAngle={1.8}
+        minPolarAngle={1.35}
+        autoRotate
+        autoRotateSpeed={0.25}
+      />
     </Canvas>
   );
 }
